@@ -5,9 +5,9 @@ const ListBooks = ({ items }) => {
   console.log(items)
   if(items.length > 0){
     return(
-      <ul>
+      <span>
         {items.map((x, y) => <Book id={y} key={y} book={x} />)}
-      </ul>
+      </span>
     )
   } else {
     return(

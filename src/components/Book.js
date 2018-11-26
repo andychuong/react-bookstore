@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 const Book = ({ book }) => {
-  let price = book.price + ''
-  price = `$${price}`
   return (
-    <div className="collection-item">
+    <div className="list-group-item">
       <div className="row">
-        <div className="col-md-5">{book.title}</div>
-        <div className="col-md-5">{book.author}</div>
-        <div className="col-md-2">{price}</div>
+        <div className="col-md-6">
+          <a href={book.website} target="_blank"><h3>{book.title}</h3></a>
+          <p>  "{book.subtitle}"</p>
+          <h5>Author: {book.author}</h5>
+          <br></br>
+          <h5>Price: ${book.price}</h5>
+          {/* <form onSubmit={onAddItem(book.title)}>
+            <input type='submit' />
+          </form> */}
+        </div>
+        <div className="col-md-6">
+          <h5>Description:</h5>
+          <p>{book.description}</p>
+        </div>
       </div>
     </div>
   )
-
 }
+
 
 export default Book
