@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-const Book = ({ book }) => {
+const Book = ({ book, callback }) => {
   return (
     <div className="list-group-item">
       <div className="row">
@@ -10,9 +10,9 @@ const Book = ({ book }) => {
           <h5>Author: {book.author}</h5>
           <br></br>
           <h5>Price: ${book.price}</h5>
-          {/* <form onSubmit={onAddItem(book.title)}>
-            <input type='submit' />
-          </form> */}
+          <form onSubmit={callback}>
+            <input value="Add to cart" type='submit' />
+          </form>
         </div>
         <div className="col-md-6">
           <h5>Description:</h5>
@@ -22,6 +22,5 @@ const Book = ({ book }) => {
     </div>
   )
 }
-
 
 export default Book
