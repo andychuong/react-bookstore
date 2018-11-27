@@ -9,7 +9,7 @@ const ListCart = ({ items }) => {
     )
   } else {
     return (
-      <span></span>
+      <span>Your cart is empty, you should add some books!</span>
     )
   }
 }

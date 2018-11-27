@@ -1,5 +1,5 @@
 import React from 'react'
-
+// Renders cart items 
 const Cart = ({ item }) => {
   return (
     <div className="row">

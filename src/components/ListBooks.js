@@ -2,7 +2,6 @@ import React from 'react'
 import Book from './Book'
 
 const ListBooks = ({ items, callback }) => {
-  // console.log(items)
   if(items.length > 0){
     return(
       <span>
