@@ -15,6 +15,42 @@ class App extends Component {
     }
   }
 
+  // update rendered books based off form results from 'Search.js'
+  updateSearch = (search, str) => {
+
+    console.log(search,str)
+    let newRender = []
+    if(str.length > 0){
+      console.log(str.length,'insidelength')
+      let booksCopy = [...this.state.books]
+      if(search.toLowerCase() === 'author'){
+        console.log('inauthor')
+        booksCopy.forEach(ele => {
+          if (ele.author.toLowerCase().indexOf(str.toLowerCase()) !== -1) {
+            newRender.push(ele);
+          }
+        })
+      }
+      if (search.toLowerCase() === 'title') {
+          booksCopy.forEach(ele => {
+            if (ele.title.toLowerCase()
+                .trim()
+              .indexOf(str.toLowerCase().trim()) !== -1) {
+              newRender.push(ele);
+            }
+        })
+      }
+    } else {
+      newRender = [...this.state.books];
+    }
+    console.log(newRender)
+    this.setState({
+      ...this.state,
+      renderedBooks : newRender
+    })
+  }
+
+  // Add an item to the cart
   onAddItem = (ev) => {
     ev.preventDefault();
     // Get the book title
@@ -66,32 +102,36 @@ class App extends Component {
     const response = await fetch('http://localhost:8082/api/books');
     const json = await response.json();
     // Set State
+    if(this.state.books.length < 1){
+      this.setState({renderedBooks:json})
+    }
     this.setState({ books: json });
   }
 
   render() {
     return (
       <div className="App">
-        <nav className="navbar navbar-dark bg-primary">
+        <nav className="navbar fixed-top navbar-dark bg-primary">
           <a className="navbar-brand" href="./index.html">React Book Store</a>
+          <Search updateSearch={this.updateSearch}/> 
         </nav>
 
         <div className="container">
           {/* Search */}
           <br></br>
-          <Search books={this.state.cart} /> 
+          {/* <Search books={this.state.cart} />  */}
           <div className="row">
             {/* Book List */}
             <div className="col-md-8">
-              <h1>All Books:</h1>
+              <h1>Books:</h1>
               <div id="all-books" className="list-group">
-                <ListBooks items={this.state.books} callback={this.onAddItem}/>
+                <ListBooks items={this.state.renderedBooks} callback={this.onAddItem}/>
               </div>
             </div>
             {/* Cart */}
             
             <div className="col-md-4">
-              <div class="fixed">
+              <div className="fixed">
               <h1>Cart:</h1>  
               <div className="list-group-item">
                 <div className="row">
@@ -105,17 +145,16 @@ class App extends Component {
                     <h5>Price</h5>
                   </div>
                 </div>
-                {/* <span>_____________________________________________</span> */}
+                {/* Cart items */}
                 <ListCart items={this.state.cart} />
-                
               </div>
               <br></br>
+              {/* Cart total price */}
               <CartTotal items={this.state.cart} />
               </div>
             </div>
           </div>
         </div>
-
       </div>
     )
   }
