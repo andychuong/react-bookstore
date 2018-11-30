@@ -17,20 +17,18 @@ class App extends Component {
 
   // update rendered books based off form results from 'Search.js'
   updateSearch = (search, str) => {
-
-    console.log(search,str)
     let newRender = []
     if(str.length > 0){
-      console.log(str.length,'insidelength')
       let booksCopy = [...this.state.books]
+      // Search by author
       if(search.toLowerCase() === 'author'){
-        console.log('inauthor')
         booksCopy.forEach(ele => {
           if (ele.author.toLowerCase().indexOf(str.toLowerCase()) !== -1) {
             newRender.push(ele);
           }
         })
       }
+      // Search by title
       if (search.toLowerCase() === 'title') {
           booksCopy.forEach(ele => {
             if (ele.title.toLowerCase()
@@ -43,7 +41,7 @@ class App extends Component {
     } else {
       newRender = [...this.state.books];
     }
-    console.log(newRender)
+    // Update state
     this.setState({
       ...this.state,
       renderedBooks : newRender
